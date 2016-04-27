@@ -1,0 +1,181 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="GoodDayWebsite.MasterPage" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <meta charset="utf-8">
+    <title>Good Day Coffee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Css Files -->
+    
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/plugins.css" rel="stylesheet" type="text/css">
+    <link href="css/homePopup.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="css/pe-icon-7-stroke.css" rel="stylesheet" type="text/css">
+    <link href="css/animate.css" rel="stylesheet" type="text/css">
+    <link href="css/GoodDay.css" rel="stylesheet" type="text/css">
+   
+    <!-- Font Awesome -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet'
+        type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status">
+        </div>
+    </div>
+    <!--//Preloader -->
+    <!-- #page -->
+    <div id="page">
+        <!-- header section -->
+        <div id="topping">
+            <asp:Label ID="LoginTop" runat="server" Text="<a href='Login.aspx'>Login</a>|<a href='SignUp.aspx'>Sign Up</a>"></asp:Label>
+            
+        </div>
+        <section id="top">
+            <header> 
+            	<div class="container">                                   
+                    <!-- logo -->
+                    <div id="logo">
+                        <a href="Default.aspx">
+                        <img src="../images/LogoGDC.png" alt="Logo" /></a>
+         			</div>
+                    <asp:LoginView ID="LoginView1" runat="server">
+                        <AnonymousTemplate>
+                        <nav class="navmenu">
+                            <ul>
+                                <li><a href="Default.aspx">Home</a></li>  
+                                <li><a href="CoffeeType.aspx">Coffee Types</a></li>
+                                <li><a href="CoffeeStrength.aspx">Coffee Strengths</a></li>
+                                <li><a href="#contact">Contact Us</a></li>
+                            </ul>
+                        </nav><!-- end menu --> 
+                          </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <nav class="navmenu">
+                            <ul>
+                                <li><a href="Default.aspx">Home</a></li>  
+                                <li><a href="CoffeeType.aspx">Coffee Types</a></li>
+                                <li><a href="CoffeeStrength.aspx">Coffee Strengths</a></li>
+                                <li><a href="#contact">Contact Us</a></li>
+                                <li><a href="AddToCart.aspx">My Cart</a></li>
+                            </ul>
+                        </nav><!-- end menu --> 
+                        </LoggedInTemplate>
+                        </asp:LoginView>
+                    <div class="clear"></div>
+            	</div>
+            </header>  
+        </section>
+        <!-- //end header section -->
+        <!-- home content -->
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+
+         <!--footer-->
+        <div class="footer">
+            <!-- footer_bottom -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="footer_block">
+                            <div class="title">
+                                <h3>
+                                    Recent Posts</h3>
+                            </div>
+                            <ul class="list-posts">
+                                <li>
+                                    <p>
+                                        Enjoy a classic coffee grinded and delivered on the day of purchased.</p>
+                                    <tourtraveln class="date">13, Nov. 2015</tourtraveln>
+                                    <a href="#">By Admin</a> </li>
+                                <li>
+                                    <p>
+                                        We value your opinion regarding our service and products.</p>
+                                    <tourtraveln class="date">14, Nov. 2015</tourtraveln>
+                                    <a href="#">By Admin</a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="footer_block">
+                            <div class="title">
+                                <h3>
+                                    Opening Hours</h3>
+                            </div>
+                            <div class="working_hours">
+                                <ul>
+                                    <li>
+                                        <tourtraveln><i class="fa fa-clock-o"></i>Monday - Tuesday</tourtraveln>
+                                        <tourtraveln>
+                                        06.00 - 22.00</Tour Traveln> </li>
+                                    <li>
+                                        <tourtraveln><i class="fa fa-clock-o"></i>Friday</tourtraveln>
+                                        <tourtraveln>06.00 - 23.00</tourtraveln>
+                                    </li>
+                                    <li>
+                                        <tourtraveln><i class="fa fa-clock-o"></i>Saturday</tourtraveln>
+                                        <tourtraveln>06.00 - 23.30</tourtraveln>
+                                    </li>
+                                    <li>
+                                        <tourtraveln><i class="fa fa-clock-o"></i>Sunday</tourtraveln>
+                                        <tourtraveln>06.00 - 21.00</tourtraveln>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="footer_block">
+                            <div class="title">
+                                <h3>
+                                    Newsletter Signup</h3>
+                            </div>
+                            <p>
+                                Signup to our weekly newsletter and receive our great promotions. We'll keep you
+                                updated.</p>
+                            <div class="ns_block">
+                                <input type="text" class="ns_input" placeholder="Email address" title="Email address">
+                                <input type="submit" class="shortcode_button" value="Sign Up">
+                            </div>
+                            <div class="social">
+                                <a href="#" class="soc-f">T</a> <a href="#" class="soc-t">o</a> <a href="#" class="soc-g">
+                                    u</a> <a href="#" class="soc-n">r</a> <a href="#" class="soc-v">wo</a> <a href="#"
+                                        class="soc-r">r</a> <a href="#" class="soc-i">ld</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="copyright">
+                    &copy; Copyright 2016. TourTravel All Rights Reserved.
+                </div>
+            </div>
+            <!-- //footer_bottom -->
+        </div>
+        <!--//footer-->
+    </div>
+    <!-- end #page -->
+    <header class="fixed-menu"></header>
+    <!-- javascript files-->
+    <script type="text/javascript" src="js/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="js/sorting.js"></script>
+    <script src="js/homePopupLoad.js" type="text/javascript"></script>
+    <script src="js/homePopup.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/current.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <!-- animation on scrolling-->
+    <script>
+        new WOW().init();
+    </script>
+    </form>
+</body>
+</html>

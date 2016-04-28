@@ -40,13 +40,13 @@ namespace GoodDayWebsite {
         protected global::System.Web.UI.WebControls.GridView dg_checkout;
         
         /// <summary>
-        /// btn_MakePayment control.
+        /// Table3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_MakePayment;
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table3;
         
         /// <summary>
         /// txt_firstName control.
@@ -146,6 +146,15 @@ namespace GoodDayWebsite {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_postcode2;
+        
+        /// <summary>
+        /// Table4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table4;
         
         /// <summary>
         /// ddl_paymentMethod control.

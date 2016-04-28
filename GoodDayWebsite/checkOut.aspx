@@ -12,14 +12,11 @@
         <asp:gridview id="dg_checkout" runat="server"></asp:gridview>
         <br />
         <br />
-        <asp:button id="btn_MakePayment" runat="server" text="Make Payment" />
-        <br />
-        <br />
-        <br />
-        <table>
-         <th>Your Information:</th>
+          <table ID="Table3" runat="server" Width="800px">
+         <tr><th style="text-align:left">Your Information:</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th></tr>
+              <tr><td>&nbsp;</td></tr>
             <tr>
-                <td>First Name:</td><td> <asp:textbox id="txt_firstName" runat="server"></asp:textbox></td><td> Last Name: </td> <td><asp:textbox id="txt_lastName" runat="server"></asp:textbox></td>
+                <td style="width:200px">First Name:</td><td> <asp:textbox id="txt_firstName" runat="server"></asp:textbox></td><td td style="width:200px"> Last Name: </td> <td><asp:textbox id="txt_lastName" runat="server"></asp:textbox></td>
             </tr>
             <tr>
                 <td>Phone: </td><td><asp:textbox id="txt_Phone" runat="server"></asp:textbox></td><td></td><td></td>
@@ -30,7 +27,7 @@
         <tr><td>&nbsp;</td></tr>
         <tr><td>&nbsp;</td></tr>
             <tr>
-             <td>Billing and Shipment Address:</td><td></td><td></td><td></td>
+             <td>Billing and Shipment Address:</td>
                 </tr>
             <tr>
                 <td>Postcode:</td><td> <asp:textbox id="txt_Postcode" runat="server"></asp:textbox></td> <td></td><td></td>
@@ -46,10 +43,11 @@
             <tr>
                 <td>Country:</td><td><asp:textbox id="txt_Country" runat="server"></asp:textbox></td><td>Postcode: </td><td><asp:textbox id="txt_postcode2" runat="server"></asp:textbox></td>
             </tr>
-                </table>
+                    </table>
         <br />
-        <table>
-            <th>Payment Method</th>
+        <br />
+                    <table ID="Table4" runat="server" Width="600px">
+            <tr style="text-align:left"><th>Payment Method</th><th>&nbsp;</th></tr>
             <tr><td>&nbsp;</td></tr>
             <tr><td>Choose Payment Type:</td><td>
                 <asp:DropDownList ID="ddl_paymentMethod" runat="server"></asp:DropDownList></td></tr>
@@ -61,9 +59,14 @@
                 <asp:TextBox ID="txt_cardExpiryYear" runat="server"></asp:TextBox></td></tr>
             <tr><td>Card 3 Digit Security No:</td><td>
                 <asp:TextBox ID="txt_SecurityNumber" runat="server"></asp:TextBox></td></tr>
-        </table>
+                        <tr><td>&nbsp;</td></tr>
+                   </table>
         <br />
         <br />
-        <asp:button id="btn_Pay" runat="server" text="Pay" OnClick="btn_Pay_Click"/>
+        <asp:button id="btn_Pay" runat="server" text="Make Payment" OnClick="btn_Pay_Click"/>
+        <br />
+        <br />
+        <br />
+        <br />
       </section>
 </asp:Content>

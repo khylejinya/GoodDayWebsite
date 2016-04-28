@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GoogleMaps.LocationServices, Version=0.1.5926.26040, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleMaps.LocationServices.0.9.8.6\lib\net40\GoogleMaps.LocationServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -67,8 +71,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddToCart.aspx" />
+    <Content Include="checkOut.aspx" />
     <Content Include="CoffeeStrength.aspx" />
     <Content Include="CS_Activation.aspx" />
+    <Content Include="GoogleMaps.LocationServices.readme.txt" />
     <Content Include="ListCoffees.aspx" />
     <Content Include="CoffeeType.aspx" />
     <Content Include="css\GoodDay.css" />
@@ -131,6 +137,13 @@
     </Compile>
     <Compile Include="AddToCart.aspx.designer.cs">
       <DependentUpon>AddToCart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="checkOut.aspx.cs">
+      <DependentUpon>checkOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="checkOut.aspx.designer.cs">
+      <DependentUpon>checkOut.aspx</DependentUpon>
     </Compile>
     <Compile Include="CoffeeStrength.aspx.cs">
       <DependentUpon>CoffeeStrength.aspx</DependentUpon>

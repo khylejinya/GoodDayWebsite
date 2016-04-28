@@ -31,6 +31,8 @@ namespace GoodDayWebsite
         //For calculating ItemTotal
         decimal itemTotal;
 
+        int lastOrderID;
+        int orderID;
         SqlConnection conn = new SqlConnection("Data Source=KHYLE-PC;Initial Catalog=GoodDayCoffee;Integrated Security=True;Pooling=False");
 
         protected void Page_Load(object sender, EventArgs e)
@@ -125,6 +127,7 @@ namespace GoodDayWebsite
                 {
                     SelectCustomerID();
                     SqlCommand addRecord = new SqlCommand("INSERT INTO ShoppingCart (CustomerID, CoffeeID, CoffeeName, CoffeeImageLoc, Quantity, Price, Grind, ItemTotal) VALUES (@CustomerID, @CoffeeID, @CoffeeName, @CoffeeImageLoc, @Quantity, @Price, @Grind, @ItemTotal)", conn);
+                    SqlCommand addOrderItem = new SqlCommand("INSERT INTO OrderItem (OrderID, CoffeeID, Quantity, Grind, Price, Total, CustomerID, Status) VALUES (@OrderID, @CoffeeID, @Quantity, @Grind, @Price, @ItemTotal, @CustomerID, @Status)", conn);
 
 
                     itemTotal = Convert.ToDecimal(coffeePrice) * Convert.ToDecimal(txt_Quantity.Text);
@@ -139,8 +142,22 @@ namespace GoodDayWebsite
                     addRecord.Parameters.Add(new SqlParameter("@Grind", ddl_CoffeeGrind.SelectedValue));
                     addRecord.Parameters.Add(new SqlParameter("@ItemTotal", itemTotal));
 
+                    SelectOrderID();
+                    addOrderItem.Parameters.Add(new SqlParameter("@OrderID", orderID));
+                    addOrderItem.Parameters.Add(new SqlParameter("@CustomerID", customerID));
+                    addOrderItem.Parameters.Add(new SqlParameter("@CoffeeID", coffeeID));
+                    addOrderItem.Parameters.Add(new SqlParameter("@CoffeeName", coffeeName));
+                    addOrderItem.Parameters.Add(new SqlParameter("@CoffeeImageLoc", coffeeImageLoc));
+                    addOrderItem.Parameters.Add(new SqlParameter("@Quantity", txt_Quantity.Text));
+                    addOrderItem.Parameters.Add(new SqlParameter("@Price", coffeePrice));
+                    addOrderItem.Parameters.Add(new SqlParameter("@Grind", ddl_CoffeeGrind.SelectedValue));
+                    addOrderItem.Parameters.Add(new SqlParameter("@ItemTotal", itemTotal));
+
+                    addOrderItem.Parameters.Add(new SqlParameter("@Status", "Active"));
+
                     conn.Open();
                     addRecord.ExecuteNonQuery();
+                    addOrderItem.ExecuteNonQuery();
                     conn.Close();
 
                     Response.Redirect("AddToCart.aspx");
@@ -186,12 +203,31 @@ namespace GoodDayWebsite
                     sda.Fill(dt);
                     if (dt.Rows.Count > 0) // Check if the DataTable returns any data from database
                     {
-
                         customerID = Convert.ToInt32(dt.Rows[0]["UserId"].ToString());
                         Session["ActiveCustomerID"] = customerID;
                     }
                 }
             }
+        }
+
+        private void SelectOrderID()
+        {
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = "SELECT TOP 1 OrderID FROM [Order] ORDER BY OrderID DESC; ";
+                cmd.Connection = conn;
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    if (dt.Rows.Count > 0) // Check if the DataTable returns any data from database
+                    {
+                        lastOrderID = Convert.ToInt32(dt.Rows[0]["OrderID"].ToString());
+                    }
+                }
+            }
+
+            orderID = lastOrderID + 1;
         }
 
         protected void btn_UpdateMe_Click(object sender, EventArgs e)

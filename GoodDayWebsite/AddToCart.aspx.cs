@@ -93,6 +93,13 @@ namespace GoodDayWebsite
             conn.Open();
             deleteRecord.ExecuteNonQuery();
             conn.Close();
+
+            //Delete Order Item
+            SqlCommand deleteRecord2 = new SqlCommand("DELETE FROM OrderItem WHERE Id LIKE '" + cartID + "';", conn);
+            conn.Open();
+            deleteRecord2.ExecuteNonQuery();
+            conn.Close();
+
             lvCustomers.EditIndex = -1;
 
 
@@ -127,13 +134,26 @@ namespace GoodDayWebsite
             conn.Open();
             updateDetails.ExecuteNonQuery();
             conn.Close();
+
+            //Update Order Items
+            SqlCommand updateDetails2 = new SqlCommand("UPDATE OrderItem SET Quantity=@Quantity, Price=@Price, Total=@ItemTotal WHERE Id=@Id;", conn);
+            updateDetails2.Parameters.Add(new SqlParameter("@Quantity", newQuantity));
+            updateDetails2.Parameters.Add(new SqlParameter("@Price", coffeePrice));
+            updateDetails2.Parameters.Add(new SqlParameter("@ItemTotal", itemTotal));
+            updateDetails2.Parameters.Add(new SqlParameter("@Id", cartID));
+
+            conn.Open();
+            updateDetails2.ExecuteNonQuery();
+            conn.Close();
+
+
             this.BindListView();
             CalculateSubTotal();
         }
 
         protected void btn_Checkout_Click(object sender, EventArgs e)
         {
-             
+            Response.Redirect("checkOut.aspx");
         }
     }
 }

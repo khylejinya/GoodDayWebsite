@@ -8,6 +8,10 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Net.Mail;
 using System.Net;
+using Google.Maps.Geocoding;
+using Google.Maps.StaticMaps;
+using Google.Maps;
+using Google.Maps.Direction;
 
 namespace GoodDayWebsite
 {
@@ -30,10 +34,14 @@ namespace GoodDayWebsite
         protected void Page_Load(object sender, EventArgs e)
         {
             customerID = Convert.ToInt32(Session["ActiveCustomerID"]);
+            customerEmail = Session["ActiveEmail"].ToString();
             if (!this.IsPostBack)
             {
+                
                 this.BindCoffeeCart();
                 CalculateSubTotal();
+                customerEmail = Session["ActiveEmail"].ToString();
+                lbl_emailAddress.Text = customerEmail;
             }
         }
         private void BindCoffeeCart()
@@ -71,7 +79,17 @@ namespace GoodDayWebsite
         }
         protected void btn_FindAddress_click(object sender, EventArgs e)
         {
-
+            //Find address from postcode
+            var request = new GeocodingRequest();
+            request.Address = txt_Postcode.Text;
+            request.Sensor = false;
+            var response = new GeocodingService().GetResponse(request);
+            var result = response.Results.First();
+            //lbl_Address.Text = "Address = " + result.FormattedAddress;
+            txt_Street.Text = txt_houseNumber.Text + ", " + result.AddressComponents[1].LongName;
+            txt_City.Text = result.AddressComponents[2].LongName;
+            txt_County.Text = result.AddressComponents[4].ShortName;
+            txt_postcode2.Text = txt_Postcode.Text;
         }
 
         protected void btn_Pay_Click(object sender, EventArgs e)

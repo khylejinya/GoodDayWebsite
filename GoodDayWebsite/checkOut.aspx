@@ -50,7 +50,11 @@
             <tr style="text-align:left"><th>Payment Method</th><th>&nbsp;</th></tr>
             <tr><td>&nbsp;</td></tr>
             <tr><td>Choose Payment Type:</td><td>
-                <asp:DropDownList ID="ddl_paymentMethod" runat="server"></asp:DropDownList></td></tr>
+                <asp:DropDownList ID="ddl_paymentMethod" runat="server">
+                    <asp:ListItem Selected="True" Value="Visa"> Visa </asp:ListItem>
+                              <asp:ListItem Value="Maestro"> Maestro </asp:ListItem>
+                              <asp:ListItem Value="MasterCard"> MasterCard </asp:ListItem>
+                </asp:DropDownList></td></tr>
             <tr><td>Card Number:</td> <td>
                 <asp:TextBox ID="txt_cardNumber" runat="server"></asp:TextBox></td></tr>
             <tr><td>Card Expiry Month:</td><td>

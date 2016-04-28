@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
+using System.Net.Mail;
+using System.Net;
 
 namespace GoodDayWebsite
 {
@@ -17,9 +19,12 @@ namespace GoodDayWebsite
 
         //For selecting Customer ID
         string customerEmail;
+        string username;
 
         int lastOrderID;
         int orderID;
+
+        DateTime localDate;
 
         string paymentID;
         protected void Page_Load(object sender, EventArgs e)
@@ -82,6 +87,13 @@ namespace GoodDayWebsite
                 //Insert Order in Database
                 AddOrderToDatabase();
 
+                //Delete Shopping Cart Items
+                DeleteShoppingCart();
+
+                string myStringVariable = "Thank you for your purchase!";
+                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);
+                SendInvoiceEmail();
+                Response.Redirect("Default.aspx");
             }
         }
 
@@ -102,9 +114,9 @@ namespace GoodDayWebsite
 
         private void AddOrderToDatabase()
         {
-            SqlCommand addRecord = new SqlCommand("INSERT INTO Order (OrderID, CustomerID, DateOrdered, OrderStatus, PaymentID, FirstName, LastName, PostCode, HouseNumber, Street, Town) VALUES (@OrderID, @CustomerID, @DateOrdered, @OrderStatus, @PaymentID, @FirstName, @LastName, @PostCode, @HouseNumber, @Street, @Town)", conn);
+            SqlCommand addRecord = new SqlCommand("INSERT INTO [Order] (OrderID, CustomerID, DateOrdered, OrderStatus, PaymentID, FirstName, LastName, PostCode, HouseNumber, Street, Town) VALUES (@OrderID, @CustomerID, @DateOrdered, @OrderStatus, @PaymentID, @FirstName, @LastName, @PostCode, @HouseNumber, @Street, @Town)", conn);
 
-            DateTime localDate = DateTime.Now;
+            localDate = DateTime.Now;
 
             SelectPaymentID();
 
@@ -118,11 +130,21 @@ namespace GoodDayWebsite
             addRecord.Parameters.Add(new SqlParameter("@LastName", txt_lastName.Text));
             addRecord.Parameters.Add(new SqlParameter("@PostCode", txt_postcode2.Text));
             addRecord.Parameters.Add(new SqlParameter("@HouseNumber", txt_houseNumber.Text));
-            addRecord.Parameters.Add(new SqlParameter("@Street", txt_Street));
+            addRecord.Parameters.Add(new SqlParameter("@Street", txt_Street.Text));
             addRecord.Parameters.Add(new SqlParameter("@Town", txt_Country.Text));
 
             conn.Open();
             addRecord.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        private void DeleteShoppingCart()
+        {
+            SelectCustomerID();
+            SqlCommand deleteRecord = new SqlCommand("DELETE FROM ShoppingCart WHERE CustomerID=" + customerID + ";", conn);
+
+            conn.Open();
+            deleteRecord.ExecuteNonQuery();
             conn.Close();
         }
 
@@ -148,7 +170,7 @@ namespace GoodDayWebsite
             customerEmail = Session["ActiveEmail"].ToString();
             using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = "SELECT UserId FROM Users WHERE Email LIKE '%" + customerEmail + "';";
+                cmd.CommandText = "SELECT UserId, Username FROM Users WHERE Email LIKE '%" + customerEmail + "';";
                 cmd.Connection = conn;
                 using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
                 {
@@ -158,6 +180,7 @@ namespace GoodDayWebsite
                     {
                         customerID = Convert.ToInt32(dt.Rows[0]["UserId"].ToString());
                         Session["ActiveCustomerID"] = customerID;
+                        username = dt.Rows[0]["Username"].ToString();
                     }
                 }
             }
@@ -181,6 +204,33 @@ namespace GoodDayWebsite
             }
 
             orderID = lastOrderID + 1;
+        }
+
+        private void SendInvoiceEmail()
+        {
+            SelectCustomerID();
+            using (MailMessage mm = new MailMessage("SDIAF1415@gmail.com", Session["ActiveEmail"].ToString()))
+            {
+                mm.Subject = "Good Day Coffee Invoice";
+                string body = "Hello " + username.Trim() + ",";
+                body += "<br /><br />Note: This is an auto-generated message. Please do not respond to it!";
+                body += "<br /> Thank you for your recent purchase.";
+                body += "<br /><br /> Order Number: " + orderID;
+                body += "<br /> Date: " + localDate;
+                body += "<br /> Total: " + lbl_OrderTotal.Text;
+                body += "<br /><br /> Thank you again for your purchase!";
+                body += "<br /> <b> Good Day Coffee </b>";
+                mm.Body = body;
+                mm.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                NetworkCredential NetworkCred = new NetworkCredential("SDIAF1415@gmail.com", "Software1415");
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = NetworkCred;
+                smtp.Port = 587;
+                smtp.Send(mm);
+            }
         }
     }
 }

@@ -163,45 +163,52 @@ namespace GoodDayWebsite
 
         private void SubtractCoffeeQuantity()
         {
+            SqlConnection conn2 = new SqlConnection("Data Source=KHYLE-PC;Initial Catalog=GoodDayCoffee;Integrated Security=True;Pooling=False");
+            SqlConnection conn3 = new SqlConnection("Data Source=KHYLE-PC;Initial Catalog=GoodDayCoffee;Integrated Security=True;Pooling=False");
+
             using (SqlCommand cmd = new SqlCommand())
             {
                 cmd.CommandText = "SELECT CoffeeID, Quantity FROM OrderItem WHERE CustomerID = " + customerID + ";";
                 cmd.Connection = conn;
                 using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
                 {
+                    conn.Close();
                     conn.Open();
                     SqlDataReader sdr = cmd.ExecuteReader();
                     while (sdr.Read())
                     {
                         using (SqlCommand cmd2 = new SqlCommand())
                         {
-                            cmd2.CommandText = "SELECT Quantity FROM Coffee WHERE CoffeeID = " + sdr["CoffeeID"] + ";";
-                            cmd2.Connection = conn;
+                            cmd2.CommandText = "SELECT CoffeeQuantity FROM Coffee WHERE CoffeeID = " + sdr["CoffeeID"] + ";";
+                            cmd2.Connection = conn2;
+                            conn2.Open();
                             using (SqlDataAdapter sda2 = new SqlDataAdapter(cmd2))
                             {
-                                conn.Open();
-                                SqlDataReader getTotalQuantity = cmd.ExecuteReader();
+                                
+                                SqlDataReader getTotalQuantity = cmd2.ExecuteReader();
                                 while (getTotalQuantity.Read())
                                 {
-                                    SqlCommand updateDetails = new SqlCommand("UPDATE [Coffee] SET Quantity=@Quantity WHERE CoffeeID=@CoffeeID;", conn);
+                                    SqlCommand updateDetails = new SqlCommand("UPDATE [Coffee] SET CoffeeQuantity=@Quantity WHERE CoffeeID=@CoffeeID;", conn3);
 
                                     //Also, to avoid SQL Injection, parameterized queries were used, rather than string concatenation. 
                                     updateDetails.Parameters.Add(new SqlParameter("@CoffeeID", sdr["CoffeeID"].ToString()));
 
-                                    int newStockQuantity = Convert.ToInt32(getTotalQuantity["Quantity"]) - Convert.ToInt32(sdr["Quantity"]);
+                                    int newStockQuantity = Convert.ToInt32(getTotalQuantity["CoffeeQuantity"]) - Convert.ToInt32(sdr["Quantity"]);
                                     updateDetails.Parameters.Add(new SqlParameter("@Quantity", newStockQuantity));
-
-                                    conn.Open();
+                                    conn3.Open();
                                     updateDetails.ExecuteNonQuery();
-                                    conn.Close();
+                                    conn3.Close();
+                                    
+
                                 }
-                                conn.Close();
+                                conn2.Close();
                             }
                         }
                     }
                     conn.Close();
                 }
             }
+
         }
 
         private void DeleteShoppingCart()

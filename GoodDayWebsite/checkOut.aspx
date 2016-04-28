@@ -16,10 +16,14 @@
          <tr><th style="text-align:left">Your Information:</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th></tr>
               <tr><td>&nbsp;</td></tr>
             <tr>
-                <td style="width:200px">First Name:</td><td> <asp:textbox id="txt_firstName" runat="server"></asp:textbox></td><td td style="width:200px"> Last Name: </td> <td><asp:textbox id="txt_lastName" runat="server"></asp:textbox></td>
+                <td style="width:200px">First Name:</td><td> <asp:textbox id="txt_firstName" runat="server"></asp:textbox>
+                    <asp:RequiredFieldValidator id="RequiredFieldValidator1" runat="server" ControlToValidate="txt_firstName" ErrorMessage="* Required field" ForeColor="Red"></asp:RequiredFieldValidator></td>
+                <td style="width:200px"> Last Name: </td> <td><asp:textbox id="txt_lastName" runat="server"></asp:textbox>                    
+                    <asp:RequiredFieldValidator id="RequiredFieldValidator2" runat="server" ControlToValidate="txt_lastName" ErrorMessage="* Required Field" ForeColor="Red"></asp:RequiredFieldValidator></td>
+
             </tr>
             <tr>
-                <td>Phone: </td><td><asp:textbox id="txt_Phone" runat="server"></asp:textbox></td><td></td><td></td>
+                <td>Phone: </td><td><asp:textbox id="txt_Phone" runat="server"></asp:textbox></td><td><asp:RequiredFieldValidator id="RequiredFieldValidator3" runat="server" ControlToValidate="txt_Phone" ErrorMessage="* Required Field" ForeColor="Red"></asp:RequiredFieldValidator></td><td></td>
                 </tr>
             <tr>
              <td>Email Address: </td><td><asp:Label id="lbl_emailAddress" runat="server" Text="Label"></asp:Label></td><td></td><td></td>
@@ -30,10 +34,10 @@
              <td>Billing and Shipment Address:</td>
                 </tr>
             <tr>
-                <td>Postcode:</td><td> <asp:textbox id="txt_Postcode" runat="server"></asp:textbox></td> <td></td><td></td>
+                <td>Postcode:</td><td> <asp:textbox id="txt_Postcode" runat="server"></asp:textbox></td> <td> <asp:RequiredFieldValidator id="RequiredFieldValidator4" runat="server" ControlToValidate="txt_Postcode" ErrorMessage="* Required Field" ForeColor="Red"></asp:RequiredFieldValidator></td><td></td>
                </tr>
             <tr>
-                 <td>House Number: </td><td><asp:textbox id="txt_houseNumber" runat="server"></asp:textbox> </td><td> <asp:button id="FindAddress" runat="server" text="Find Address" onClick="btn_FindAddress_click"/></td><td></td>
+                 <td>House Number: </td><td><asp:textbox id="txt_houseNumber" runat="server"></asp:textbox> <asp:RequiredFieldValidator id="RequiredFieldValidator5" runat="server" ControlToValidate="txt_houseNumber" ErrorMessage="* Required Field" ForeColor="Red"></asp:RequiredFieldValidator> </td><td> <asp:button id="FindAddress" runat="server" text="Find Address" onClick="btn_FindAddress_click"/></td><td></td>
              </tr>
              <tr><td>&nbsp;</td></tr>
             <tr><td>&nbsp;</td></tr>
@@ -56,13 +60,13 @@
                               <asp:ListItem Value="MasterCard"> MasterCard </asp:ListItem>
                 </asp:DropDownList></td></tr>
             <tr><td>Card Number:</td> <td>
-                <asp:TextBox ID="txt_cardNumber" runat="server"></asp:TextBox></td></tr>
+                <asp:TextBox ID="txt_cardNumber" runat="server"></asp:TextBox></td><td> <asp:RequiredFieldValidator id="RequiredFieldValidator6" runat="server" ControlToValidate="txt_cardNumber" ErrorMessage="* Required Field" ForeColor="Red"></asp:RequiredFieldValidator></td></tr>
             <tr><td>Card Expiry Month:</td><td>
-                <asp:TextBox ID="txt_cardExpiryMonth" runat="server"></asp:TextBox></td></tr>
+                <asp:TextBox ID="txt_cardExpiryMonth" runat="server"></asp:TextBox></td><td> <asp:RequiredFieldValidator id="RequiredFieldValidator7" runat="server" ControlToValidate="txt_cardExpiryMonth" ErrorMessage="* Required Field" ForeColor="Red"></asp:RequiredFieldValidator></td></tr>
             <tr><td>Card Expiry Year:</td><td>
-                <asp:TextBox ID="txt_cardExpiryYear" runat="server"></asp:TextBox></td></tr>
+                <asp:TextBox ID="txt_cardExpiryYear" runat="server"></asp:TextBox></td><td> <asp:RequiredFieldValidator id="RequiredFieldValidator8" runat="server" ControlToValidate="txt_cardExpiryYear" ErrorMessage="* Required Field" ForeColor="Red"></asp:RequiredFieldValidator></td></tr>
             <tr><td>Card 3 Digit Security No:</td><td>
-                <asp:TextBox ID="txt_SecurityNumber" runat="server"></asp:TextBox></td></tr>
+                <asp:TextBox ID="txt_SecurityNumber" runat="server"></asp:TextBox></td><td> <asp:RequiredFieldValidator id="RequiredFieldValidator9" runat="server" ControlToValidate="txt_SecurityNumber" ErrorMessage="* Required Field" ForeColor="Red"></asp:RequiredFieldValidator></td></tr>
                         <tr><td>&nbsp;</td></tr>
                    </table>
         <br />

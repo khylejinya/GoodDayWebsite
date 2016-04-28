@@ -61,5 +61,10 @@ namespace GoodDayWebsite
         {
 
         }
+
+        protected void btn_Pay_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

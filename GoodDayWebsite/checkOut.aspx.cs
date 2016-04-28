@@ -108,6 +108,9 @@ namespace GoodDayWebsite
                 //Delete Shopping Cart Items
                 DeleteShoppingCart();
 
+                //Updating Order Items
+                SubtractCoffeeQuantity();
+
                 string myStringVariable = "Thank you for your purchase!";
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);
                 SendInvoiceEmail();
@@ -156,6 +159,49 @@ namespace GoodDayWebsite
             conn.Open();
             addRecord.ExecuteNonQuery();
             conn.Close();
+        }
+
+        private void SubtractCoffeeQuantity()
+        {
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = "SELECT CoffeeID, Quantity FROM OrderItem WHERE CustomerID = " + customerID + ";";
+                cmd.Connection = conn;
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    conn.Open();
+                    SqlDataReader sdr = cmd.ExecuteReader();
+                    while (sdr.Read())
+                    {
+                        using (SqlCommand cmd2 = new SqlCommand())
+                        {
+                            cmd2.CommandText = "SELECT Quantity FROM Coffee WHERE CoffeeID = " + sdr["CoffeeID"] + ";";
+                            cmd2.Connection = conn;
+                            using (SqlDataAdapter sda2 = new SqlDataAdapter(cmd2))
+                            {
+                                conn.Open();
+                                SqlDataReader getTotalQuantity = cmd.ExecuteReader();
+                                while (getTotalQuantity.Read())
+                                {
+                                    SqlCommand updateDetails = new SqlCommand("UPDATE [Coffee] SET Quantity=@Quantity WHERE CoffeeID=@CoffeeID;", conn);
+
+                                    //Also, to avoid SQL Injection, parameterized queries were used, rather than string concatenation. 
+                                    updateDetails.Parameters.Add(new SqlParameter("@CoffeeID", sdr["CoffeeID"].ToString()));
+
+                                    int newStockQuantity = Convert.ToInt32(getTotalQuantity["Quantity"]) - Convert.ToInt32(sdr["Quantity"]);
+                                    updateDetails.Parameters.Add(new SqlParameter("@Quantity", newStockQuantity));
+
+                                    conn.Open();
+                                    updateDetails.ExecuteNonQuery();
+                                    conn.Close();
+                                }
+                                conn.Close();
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
         }
 
         private void DeleteShoppingCart()

@@ -69,8 +69,10 @@
                 </ItemTemplate>
                 </asp:ListView>
             </div>
-        <div class="cartSubTotal">SubTotal: &nbsp; &nbsp;<asp:Label ID="lbl_subTotal" runat="server" CssClass="coffeePrice"></asp:Label></div> 
+        <div class="cartSubTotal">SubTotal: &nbsp; &nbsp;<asp:Label ID="lbl_subTotal" runat="server" CssClass="coffeePrice"></asp:Label>
+            <br /> <asp:Button ID="btn_Checkout" Text="Checkout" runat="server" OnClick="btn_Checkout_Click"/>
+        </div> 
      <br />    
-        <asp:Button ID="btn_Checkout" Text="Checkout" runat="server" OnClick="btn_Checkout_Click"/>
+        
     </section>
 </asp:Content>

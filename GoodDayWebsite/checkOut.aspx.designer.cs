@@ -130,13 +130,13 @@ namespace GoodDayWebsite {
         protected global::System.Web.UI.WebControls.TextBox txt_City;
         
         /// <summary>
-        /// txt_Country control.
+        /// txt_County control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_Country;
+        protected global::System.Web.UI.WebControls.TextBox txt_County;
         
         /// <summary>
         /// txt_postcode2 control.

@@ -114,7 +114,7 @@ namespace GoodDayWebsite
 
         private void AddOrderToDatabase()
         {
-            SqlCommand addRecord = new SqlCommand("INSERT INTO [Order] (OrderID, CustomerID, DateOrdered, OrderStatus, PaymentID, FirstName, LastName, PostCode, HouseNumber, Street, Town) VALUES (@OrderID, @CustomerID, @DateOrdered, @OrderStatus, @PaymentID, @FirstName, @LastName, @PostCode, @HouseNumber, @Street, @Town)", conn);
+            SqlCommand addRecord = new SqlCommand("INSERT INTO [Order] (OrderID, CustomerID, DateOrdered, OrderStatus, PaymentID, FirstName, LastName, PostCode, HouseNumber, Street, Town, County, Phone) VALUES (@OrderID, @CustomerID, @DateOrdered, @OrderStatus, @PaymentID, @FirstName, @LastName, @PostCode, @HouseNumber, @Street, @Town, @County, @Phone)", conn);
 
             localDate = DateTime.Now;
 
@@ -131,7 +131,9 @@ namespace GoodDayWebsite
             addRecord.Parameters.Add(new SqlParameter("@PostCode", txt_postcode2.Text));
             addRecord.Parameters.Add(new SqlParameter("@HouseNumber", txt_houseNumber.Text));
             addRecord.Parameters.Add(new SqlParameter("@Street", txt_Street.Text));
-            addRecord.Parameters.Add(new SqlParameter("@Town", txt_Country.Text));
+            addRecord.Parameters.Add(new SqlParameter("@County", txt_County.Text));
+            addRecord.Parameters.Add(new SqlParameter("@Town", txt_City.Text));
+            addRecord.Parameters.Add(new SqlParameter("@Phone", txt_Phone.Text));
 
             conn.Open();
             addRecord.ExecuteNonQuery();

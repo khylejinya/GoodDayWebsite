@@ -41,7 +41,7 @@
             <td>Street:</td><td><asp:textbox id="txt_Street" runat="server"></asp:textbox></td><td>City:</td><td><asp:textbox id="txt_City" runat="server"></asp:textbox></td>
             </tr>
             <tr>
-                <td>Country:</td><td><asp:textbox id="txt_Country" runat="server"></asp:textbox></td><td>Postcode: </td><td><asp:textbox id="txt_postcode2" runat="server"></asp:textbox></td>
+                <td>County:</td><td><asp:textbox id="txt_County" runat="server"></asp:textbox></td><td>Postcode: </td><td><asp:textbox id="txt_postcode2" runat="server"></asp:textbox></td>
             </tr>
                     </table>
         <br />
